@@ -1,0 +1,38 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Homework_5_Serebryakov_Alex</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/finance.css' %}">
+    </head>
+    <body>
+        <p><a href="/">To main page</a></p>                
+        <form method="POST">
+            {{form.as_p}}
+            {% csrf_token %}
+        <button type="submit">Submit</button>
+        </form>
+        {%if lst_account %}
+        <table border="1">
+            <caption>Your accounts:</caption>
+            <tr>
+                <th>Account name</th>
+                <th>Amount</th>
+                <th>Create charge</th>
+            </tr>
+        {% for i in lst_account %}
+            <tr>
+                <td>{{i.name}}</td>
+                <td>{{i.amount}}</td>
+                <td><form action={% url 'finance:create_charge' i.id %}><button type="submit">create charge</button></form>
+            </tr>
+           {% endfor %}
+        </table>
+        {% else %}
+        <p>No accounts yet, create account</p>
+        {% endif %}
+    </body>
+</html>   

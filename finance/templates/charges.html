@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Homework_5_Serebryakov_Alex</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/finance.css' %}">
+    </head>
+    <body>
+        <p><a href="/">To main page</a></p>
+        <p><a href="/accounts/">To accounts</a></p>                
+        <form method="POST">
+            {{form.as_p}}
+            {% csrf_token %}
+        <button type="submit">Submit</button>
+        {% if lst_charges %}
+         <table border="1">
+            <caption>Your charges:</caption>
+            <tr>
+                <th>Charge</th>
+                <th>Date</th>
+            </tr>
+        {% for i in lst_charges %}
+            <tr>
+                <td>{{i.transaction}}</td>
+                <td>{{i.dat}}</td>
+            </tr>
+           {% endfor %}
+        </table>
+        {% else %}
+        <p>No charges yet, add charge</p>
+        {% endif %}
+    </body>
+</html> 
